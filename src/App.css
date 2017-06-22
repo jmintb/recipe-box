@@ -5,9 +5,19 @@ ul {
   padding-bottom: 20px;
 }
 
+textArea {
+  height: 150px;
+  border: none;
+  outline: none;
+  width: 80%;
+  resize: vertical;
+  line-height: 20px;
+}
+
 .container {
   width: 80%;
   max-width: 700px;
+  min-width: 200px;
   margin: auto;
   margin-top: 0px;
 }
@@ -25,7 +35,6 @@ ul {
   margin-bottom: 0px;
   padding-bottom: 20px;
   padding-left: 10px;
-  line-height: 30px;
 }
 
 .recipe-li.expanded-li {
@@ -37,14 +46,13 @@ ul {
 
 .title-bar {
   width: 80%;
-  height: 30px;
   font-size: 20px;
   background: #DD950F;
   line-height: 30px;
   padding-left: 10px;
+  padding-bottom: 0px;
   margin: auto;
   margin-top: 10px;
-  margin-bottom: 0px;
   color: #331219;
 }
 
@@ -72,37 +80,11 @@ input.title-bar:focus {
   outline: 3px solid #b22222;
 }
 
-textArea {
-  height: 150px;
-  border: none;
-  outline: none;
-  width: 80%;
-  resize: vertical;
-  line-height: 20px;
-}
-
 pre {
   line-height: 20px;
   white-space: pre-wrap !important;
   word-break: break-all;
   width: 80%;
-}
-
-.retracted-li {
-  width: 80%;
-  background: #DD950F;
-  height: 30px;
-  font-size: 20px;
-  padding-left: 10px;
-  line-height: 30px;
-  margin: auto;
-  margin-top: 10px;
-  margin-bottom: 0px;
-  color: #331219;
-}
-
-.retracted-li:hover {
-  background: #9B2D1E;
 }
 
 .button-theme {
