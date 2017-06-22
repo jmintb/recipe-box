@@ -5,18 +5,26 @@ import './App.css';
 class RecipeBox extends Component {
   constructor(props) {
     super(props);
-    this.handleAddRecipe = this.handleAddRecipe.bind(this);
+    this.addRecipe = this.addRecipe.bind(this);
     this.saveRecipeChanges = this.saveRecipeChanges.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
+    this.loadRecipes = this.loadRecipes.bind(this);
+    this.loadRecipes();
+  }
+  
+  loadRecipes() {
+    var recipes = localStorage.getItem('recipes');
+  
+    if(recipes !== null){
+      recipes = JSON.parse(recipes);
+    } else {
+      recipes = [];
+    }
 
-    this.state = {
-      recipes: [{title: 'Test',
-                guide: 'test',
-                ingredients: 'test'}
-                ]}
+    this.state = {recipes: recipes};
   }
 
-  handleAddRecipe(e) {
+  addRecipe(e) {
     var recipes = this.state.recipes;
     recipes.push({
       title: '',
@@ -29,15 +37,19 @@ class RecipeBox extends Component {
 
   saveRecipeChanges(recipe, index){
     var recipes = this.state.recipes.slice();
-    recipes[index] = recipe;
+    recipes[index].title = recipe.title;
+    recipes[index].guide = recipe.guide;
+    recipes[index].ingredients = recipe.ingredients;
+    delete(recipes[index].newRecipe);
     this.setState({recipes: recipes});
-    console.log('recipes: ' +(index));
+    localStorage.setItem('recipes', JSON.stringify(this.state.recipes));
   }
 
   deleteRecipe(index) {
     var recipes = this.state.recipes.slice();
     recipes.splice(index, 1);
     this.setState({recipes: recipes});
+    localStorage.setItem('recipes', JSON.stringify(recipes));
   }
 
   render() {
@@ -47,7 +59,7 @@ class RecipeBox extends Component {
           recipes = {this.state.recipes} 
           editRecipe = {this.saveRecipeChanges} 
           deleteRecipe = {this.deleteRecipe}/>
-        <button className="button-theme" onClick={this.handleAddRecipe}> AddRecipe </button>
+        <button className="button-theme" onClick={this.addRecipe}> AddRecipe </button>
       </div>
     );
   }
@@ -71,9 +83,8 @@ class RecipeList extends Component{
           deleteRecipe = {this.props.deleteRecipe}
         />);
     });
-
     return recipeList;
-  }  
+  } 
 
   render(){
     return(
