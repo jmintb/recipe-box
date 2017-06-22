@@ -161,27 +161,32 @@ class ListItem extends Component{
 
   createExpandedListItem(recipeData, key) {
     return (
-      <li key = {key} className="recipe-li expanded-li">
+      <li key = {key}>
         <div className="title-bar" onClick = {this.titleClicked}> {recipeData.title} </div>
+        <div className = "recipe-li expanded-li">
         <h4> Guide </h4>
-        <p> {recipeData.guide}</p>
+        <pre>{recipeData.guide}</pre>
         <h4> Ingredients </h4>
-        <p> {recipeData.ingredients}</p>
+        <pre>{recipeData.ingredients}</pre>
         <button onClick = {this.startEditing}>Edit</button>
         <button onClick = {this.delete}>Delete</button>
+        </div>
       </li>
     );
   }
 
   createEditableListItem(recipeData, key) {
     return(
-      <li key = {key} className="recipe-li expanded-li editable-li">
-        <input id="title-input" className="title-bar" defaultValue = {recipeData.title}/>
+      <li key = {key}>
+        <input id="title-input" className="title-bar" placeholder="Name" defaultValue = {recipeData.title}/>
+        <div className="recipe-li expanded-li">
         <h4> Guide </h4>
-        <textArea id = "guide-textarea" defaultValue = {recipeData.guide}/>
+        <textArea id = "guide-textarea" placholder="Write what to do..." defaultValue = {recipeData.guide}/>
         <h4> Ingredients </h4>
-        <textArea id = "ingredients-textarea" defaultValue = {recipeData.ingredients}/>
+        <textArea id = "ingredients-textarea" placholder="Write to use..." defaultValue = {recipeData.ingredients}/>
+        <br/>
         <button onClick = {this.saveChanges}>Finish</button>
+        </div>
       </li>
     );
   }
