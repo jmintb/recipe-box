@@ -94,6 +94,7 @@ class ListItem extends Component{
     this.saveChanges = this.saveChanges.bind(this);
     this.delete = this.delete.bind(this);
     this.state = {state: this.props.recipeData.newRecipe ? 'editing' : 'collapsed'};
+    console.log('constuctor');
   }
 
   titleClicked(e) {
@@ -109,6 +110,7 @@ class ListItem extends Component{
   }
 
   delete(e) {
+    this.setState({state: 'collapsed'})
     this.props.deleteRecipe(this.props.index);
   }
 
@@ -126,7 +128,7 @@ class ListItem extends Component{
 
   createListItem(recipeData, key) {
     var listItem;
-
+    console.log('create li');
     if(this.state.state === 'collapsed') {
       listItem = this.createRetractedListItem(recipeData, key);
     } else if(this.state.state === 'expanded') {
