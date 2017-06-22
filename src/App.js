@@ -7,6 +7,7 @@ class RecipeBox extends Component {
     super(props);
     this.handleAddRecipe = this.handleAddRecipe.bind(this);
     this.saveRecipeChanges = this.saveRecipeChanges.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
 
     this.state = {
       recipes: [{title: 'Test',
@@ -20,7 +21,8 @@ class RecipeBox extends Component {
     recipes.push({
       title: '',
       guide: '',
-      ingredients: ''
+      ingredients: '',
+      newRecipe: true
     });
     this.setState(recipes);
   }
@@ -32,10 +34,19 @@ class RecipeBox extends Component {
     console.log('recipes: ' +(index));
   }
 
+  deleteRecipe(index) {
+    var recipes = this.state.recipes.slice();
+    recipes.splice(index, 1);
+    this.setState({recipes: recipes});
+  }
+
   render() {
     return(
       <div className="container">
-        <RecipeList recipes = {this.state.recipes} editRecipe = {this.saveRecipeChanges}/>
+        <RecipeList 
+          recipes = {this.state.recipes} 
+          editRecipe = {this.saveRecipeChanges} 
+          deleteRecipe = {this.deleteRecipe}/>
         <button className="button-theme" onClick={this.handleAddRecipe}> AddRecipe </button>
       </div>
     );
@@ -57,6 +68,7 @@ class RecipeList extends Component{
           key = {index}
           index= {index}
           editRecipe = {this.props.editRecipe}
+          deleteRecipe = {this.props.deleteRecipe}
         />);
     });
 
@@ -80,7 +92,8 @@ class ListItem extends Component{
     this.titleClicked = this.titleClicked.bind(this);
     this.startEditing = this.startEditing.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
-    this.state = {state: 'collapsed'};
+    this.delete = this.delete.bind(this);
+    this.state = {state: this.props.recipeData.newRecipe ? 'editing' : 'collapsed'};
   }
 
   titleClicked(e) {
@@ -93,6 +106,10 @@ class ListItem extends Component{
 
   startEditing(e) {
     this.setState({state: 'editing'});
+  }
+
+  delete(e) {
+    this.props.deleteRecipe(this.props.index);
   }
 
   saveChanges() {
@@ -138,6 +155,7 @@ class ListItem extends Component{
         <h4> Ingredients </h4>
         <p> {recipeData.ingredients}</p>
         <button onClick = {this.startEditing}>Edit</button>
+        <button onClick = {this.delete}>Delete</button>
       </li>
     );
   }
