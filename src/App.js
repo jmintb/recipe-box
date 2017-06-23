@@ -129,7 +129,7 @@ class ListItem extends Component{
       guide: document.getElementById('guide-textarea').value,
       ingredients: document.getElementById('ingredients-textarea').value
     }
-    this.setState({state: 'expanded'});
+    this.setState({state: 'collapsed'});
     this.props.editRecipe(recipe, this.props.index);
     
   }
