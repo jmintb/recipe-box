@@ -90,5 +90,13 @@ pre {
 .button-theme {
   margin: 5px;
   border-radius: 10%;
+  background: lightblue;
+}
+
+.button-theme.delete-btn {
+  background: red;
+}
+
+.button-theme.add-btn {
   background: lightgreen;
 }

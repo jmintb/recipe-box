@@ -10,7 +10,7 @@ class RecipeBox extends Component {
     this.loadRecipes = this.loadRecipes.bind(this);
     this.loadRecipes();
   }
-  
+
   loadRecipes() {
     var recipes = localStorage.getItem('recipes');
     if(recipes !== null){
@@ -53,11 +53,12 @@ class RecipeBox extends Component {
   render() {
     return(
       <div className="container">
-        <RecipeList 
-          recipes = {this.state.recipes} 
-          editRecipe = {this.saveRecipeChanges} 
-          deleteRecipe = {this.deleteRecipe}/>
-        <button className="button-theme" onClick={this.addRecipe}> AddRecipe </button>
+        <RecipeList
+          recipes = {this.state.recipes}
+          editRecipe = {this.saveRecipeChanges}
+          deleteRecipe = {this.deleteRecipe}
+        />
+        <button className="button-theme add-btn" onClick={this.addRecipe}> AddRecipe </button>
       </div>
     );
   }
@@ -103,7 +104,6 @@ class ListItem extends Component{
     this.saveChanges = this.saveChanges.bind(this);
     this.delete = this.delete.bind(this);
     this.state = {state: this.props.recipeData.newRecipe ? 'editing' : 'collapsed'};
-    console.log('constuctor');
   }
 
   titleClicked(e) {
@@ -130,8 +130,7 @@ class ListItem extends Component{
       ingredients: document.getElementById('ingredients-textarea').value
     }
     this.setState({state: 'collapsed'});
-    this.props.editRecipe(recipe, this.props.index);
-    
+    this.props.editRecipe(recipe, this.props.index);    
   }
 
   createListItem(recipeData, key) {
@@ -143,8 +142,11 @@ class ListItem extends Component{
     } else if(this.state.state === 'editing') {
       listItem = this.createEditableListItem(recipeData, key);
     }
-
     return listItem;
+  }
+
+   getRecipeTitle(title){
+    return title === '' ? 'Unknown' : title;
   }
 
   createRetractedListItem(recipeData, key) {
@@ -164,15 +166,11 @@ class ListItem extends Component{
         <pre>{recipeData.guide}</pre>
         <h4> Ingredients </h4>
         <pre>{recipeData.ingredients}</pre>
-        <button className="button-theme edit-btn" onClick = {this.startEditing}>Edit</button>
+        <button className="button-theme" onClick = {this.startEditing}>Edit</button>
         <button className="button-theme delete-btn" onClick = {this.delete}>Delete</button>
         </div>
       </li>
     );
-  }
-
-  getRecipeTitle(title){
-    return title === '' ? 'Unknown' : title;
   }
 
   createEditableListItem(recipeData, key) {
@@ -185,7 +183,7 @@ class ListItem extends Component{
         <h4> Ingredients </h4>
         <textArea id = "ingredients-textarea" placholder="Write to use..." defaultValue = {recipeData.ingredients}/>
         <br/>
-        <button className="button-theme finish-btn" onClick = {this.saveChanges}>Finish</button>
+        <button className="button-theme" onClick = {this.saveChanges}>Finish</button>
         </div>
       </li>
     );
